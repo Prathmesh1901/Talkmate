@@ -2,7 +2,6 @@ package com.talkmate.chat.config.config;
 
 import com.talkmate.chat.ChatMessage;
 import com.talkmate.chat.MessageType;
-import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -16,21 +15,22 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @Slf4j
 public class WebSocketEventListener {
     private final SimpMessageSendingOperations messageTemplate;
+
     @EventListener
-public void HandleWebSocketDisconnectListener(
-        SessionDisconnectEvent event
-){
-    //todo -- implemented later
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+        if (headerAccessor.getSessionAttributes() == null) {
+            return;
+        }
+
         String username = (String) headerAccessor.getSessionAttributes().get("username");
-        if(username != null){
-            log.info("user disconneted: {}", username);
+        if (username != null) {
+            log.info("user disconnected: {}", username);
             var chatMessage = ChatMessage.builder()
-                    .type(MessageType.LEAVER)
+                    .type(MessageType.LEAVE)
                     .sender(username)
                     .build();
-                messageTemplate.convertAndSend("/topic/public",chatMessage);
-
+            messageTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
 

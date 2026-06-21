@@ -2,35 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Talkmate - Chat App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b14">
+    <title>Talkmate</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+<main class="app-shell">
+    <section id="username-page" class="auth-screen">
+        <div class="auth-grid">
+            <div class="auth-marketing">
+                <span class="eyebrow">Talkmate</span>
+                <h1>A calm, premium chat space for real conversations.</h1>
+                <p>
+                    A polished realtime room with a focused composer, clean message flow, and a
+                    visual language inspired by modern chat products.
+                </p>
+                <div class="hero-pills">
+                    <span>Realtime</span>
+                    <span>Minimal</span>
+                    <span>Responsive</span>
+                </div>
+            </div>
 
-<div id="username-page">
-    <div class="username-page-container">
-        <h1 class="title">👋 Welcome to Talkmate</h1>
-        <form id="usernameForm">
-            <input type="text" id="name" placeholder="Enter your username..." required />
-            <button type="submit">Join Chat</button>
-        </form>
-    </div>
-</div>
+            <div class="auth-panel glass-card">
+                <div class="panel-copy">
+                    <span class="section-label">Enter workspace</span>
+                    <h2>Choose a display name</h2>
+                    <p>Use your name or a handle. You can change it any time by refreshing.</p>
+                </div>
 
-<div id="chat-page" class="hidden">
-    <div class="chat-container">
-        <header class="chat-header">
-            <h2>Talkmate 💬</h2>
-        </header>
-        <div class="connecting">Connecting...</div>
-        <ul id="messageArea" class="message-area"></ul>
-        <form id="messageForm">
-            <input type="text" id="message" placeholder="Type a message..." autocomplete="off" required />
-            <button type="submit">Send</button>
-        </form>
-    </div>
-</div>
+                <form id="usernameForm" class="auth-form">
+                    <label class="sr-only" for="name">Display name</label>
+                    <input type="text" id="name" placeholder="Enter your display name" maxlength="24" required />
+                    <button type="submit" class="primary-btn">Continue</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="chat-page" class="chat-screen hidden">
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-lockup">
+                    <div class="brand-mark">T</div>
+                    <div>
+                        <strong>Talkmate</strong>
+                        <span>Chat workspace</span>
+                    </div>
+                </div>
+
+                <button class="sidebar-action" type="button">+ New chat</button>
+            </div>
+
+            <nav class="conversation-list" aria-label="Conversation list">
+                <span class="section-label">Rooms</span>
+                <button type="button" class="conversation-item active">
+                    <span class="conversation-dot"></span>
+                    General
+                </button>
+                <button type="button" class="conversation-item">
+                    <span class="conversation-dot muted"></span>
+                    Product
+                </button>
+                <button type="button" class="conversation-item">
+                    <span class="conversation-dot muted"></span>
+                    Design
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-card">
+                    <span class="section-label">Connection</span>
+                    <strong class="live-status"><span class="live-dot"></span>Live</strong>
+                </div>
+                <div class="status-card">
+                    <span class="section-label">People online</span>
+                    <strong id="onlineCount">0 participants</strong>
+                </div>
+            </div>
+        </aside>
+
+        <section class="chat-main glass-card">
+            <header class="topbar">
+                <div>
+                    <span class="section-label">General room</span>
+                    <h2>Conversation</h2>
+                </div>
+
+                <div class="topbar-meta">
+                    <span class="live-chip"><span class="live-dot"></span>Connected</span>
+                    <span class="muted-copy">Public room</span>
+                </div>
+            </header>
+
+            <div class="connecting">Connecting to the room...</div>
+
+            <div class="conversation-shell">
+                <div class="conversation-intro">
+                    <span class="intro-badge">Start here</span>
+                    <h3>Say hello to the room</h3>
+                    <p>
+                        Messages appear instantly, with your own posts aligned to the right and
+                        everyone else on the left.
+                    </p>
+                </div>
+
+                <ul id="messageArea" class="message-area" aria-live="polite"></ul>
+            </div>
+
+            <footer class="composer">
+                <form id="messageForm" class="message-form">
+                    <label class="sr-only" for="message">Message</label>
+                    <textarea id="message" rows="1" maxlength="280" placeholder="Message Talkmate..." autocomplete="off" required></textarea>
+                    <div class="composer-row">
+                        <span id="charCount" class="char-count">0/280</span>
+                        <button type="submit" class="primary-btn">Send</button>
+                    </div>
+                </form>
+            </footer>
+        </section>
+    </section>
+</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
