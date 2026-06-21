@@ -10,13 +10,13 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # ----- STAGE 2: Run -----
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 
 # Copy JAR from the build stage
 COPY --from=builder /app/target/chat-0.0.1-SNAPSHOT.jar app.jar
 
-EXPOSE 8080
+EXPOSE 10000
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
