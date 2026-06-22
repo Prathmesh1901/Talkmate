@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class ChatController {
 
-    private static final String DEFAULT_ROOM_ID = "LOUNGE";
+    private static final String DEFAULT_ROOM_ID = "SEA-0000";
     private final SimpMessagingTemplate messagingTemplate;
 
     public ChatController(SimpMessagingTemplate messagingTemplate) {
