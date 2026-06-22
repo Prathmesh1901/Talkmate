@@ -3,127 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#070b14">
-    <title>Talkmate</title>
+    <meta name="theme-color" content="#050807">
+    <title>Talkmate - Anonymous Chat Rooms</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<main class="app-shell">
-    <section id="username-page" class="auth-screen">
-        <div class="auth-grid">
-            <div class="auth-marketing">
-                <span class="eyebrow">Talkmate</span>
-                <h1>A calm, premium chat space for real conversations.</h1>
+<div id="loading-screen" class="loading-screen">
+    <div class="loading-panel">
+        <span class="section-label">Talkmate</span>
+        <strong>Preparing anonymous room space</strong>
+        <div class="progress-track" aria-hidden="true">
+            <span id="loadingProgress" class="progress-fill"></span>
+        </div>
+    </div>
+</div>
+
+<div id="username-page" class="site-page">
+    <header class="site-nav">
+        <a href="#home" class="nav-brand">Talkmate</a>
+        <nav aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#about">About us</a>
+            <a href="#contact">Contact us</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+    </header>
+
+    <main class="app-shell">
+        <section id="home" class="hero-section">
+            <div class="galaxy-container" aria-hidden="true">
+                <canvas id="galaxyCanvas"></canvas>
+            </div>
+
+            <div class="hero-copy">
+                <span class="eyebrow">Anonymous chat</span>
+                <h1>Meet inside a quiet galaxy of private rooms.</h1>
                 <p>
-                    A polished realtime room with a focused composer, clean message flow, and a
-                    visual language inspired by modern chat products.
+                    Create a room ID, share it with the people you trust, and talk without profiles,
+                    feeds, or noisy social layers.
                 </p>
-                <div class="hero-pills">
-                    <span>Realtime</span>
-                    <span>Minimal</span>
-                    <span>Responsive</span>
+                <div class="hero-actions">
+                    <a href="#join-panel" class="liquid-btn primary-action">Get started</a>
+                    <a href="#about" class="liquid-btn secondary-action">Learn more</a>
                 </div>
             </div>
 
-            <div class="auth-panel glass-card">
+            <section id="join-panel" class="join-panel">
                 <div class="panel-copy">
-                    <span class="section-label">Enter workspace</span>
-                    <h2>Choose a display name</h2>
-                    <p>Use your name or a handle. You can change it any time by refreshing.</p>
+                    <span class="section-label">Enter a room</span>
+                    <h2>Start anonymous</h2>
+                    <p>Use a display name and a room ID. Anyone with the same room ID joins the same chat.</p>
                 </div>
 
                 <form id="usernameForm" class="auth-form">
-                    <label class="sr-only" for="name">Display name</label>
-                    <input type="text" id="name" placeholder="Enter your display name" maxlength="24" required />
-                    <button type="submit" class="primary-btn">Continue</button>
+                    <label for="name">Display name</label>
+                    <input type="text" id="name" placeholder="Example: NightGuest" maxlength="24" required>
+
+                    <label for="roomId">Room ID</label>
+                    <div class="room-input-row">
+                        <input type="text" id="roomId" placeholder="Example: OCEAN-7281" maxlength="24" required>
+                        <button id="generateRoomBtn" class="liquid-btn compact-action" type="button">Create</button>
+                    </div>
+
+                    <p id="roomHelper" class="room-helper">Create a room or enter an existing room ID.</p>
+
+                    <button type="submit" class="liquid-btn primary-action">Join room</button>
                 </form>
+            </section>
+        </section>
+
+        <section id="pricing" class="content-band pricing-band">
+            <div class="section-heading">
+                <span class="section-label">Pricing</span>
+                <h2>Private chat can stay simple.</h2>
+            </div>
+            <div class="pricing-grid">
+                <article class="price-card">
+                    <span>Free</span>
+                    <h3>Anonymous rooms</h3>
+                    <p>Create room IDs, invite people manually, and chat in realtime.</p>
+                    <strong>Included now</strong>
+                </article>
+                <article class="price-card featured">
+                    <span>Private</span>
+                    <h3>Protected rooms</h3>
+                    <p>Future plan for passwords, saved rooms, moderation, and private history.</p>
+                    <strong>Coming soon</strong>
+                </article>
+            </div>
+        </section>
+
+        <section id="about" class="content-band about-band">
+            <div class="section-heading">
+                <span class="section-label">About us</span>
+                <h2>Built for temporary conversations.</h2>
+            </div>
+            <p>
+                Talkmate keeps the experience light: join with a name, choose a room, and speak.
+                It is designed for project discussions, quick study groups, and small private circles.
+            </p>
+        </section>
+
+        <section id="faq" class="content-band faq-band">
+            <div class="section-heading">
+                <span class="section-label">FAQ</span>
+                <h2>Questions people ask before joining.</h2>
+            </div>
+
+            <div class="accordion" id="faqAccordion">
+                <article class="accordion-item">
+                    <button class="accordion-trigger" type="button" aria-expanded="true">
+                        How do room IDs work?
+                    </button>
+                    <div class="accordion-content">
+                        <p>Everyone who enters the same room ID joins the same live room.</p>
+                    </div>
+                </article>
+                <article class="accordion-item">
+                    <button class="accordion-trigger" type="button" aria-expanded="false">
+                        Is this anonymous?
+                    </button>
+                    <div class="accordion-content" hidden>
+                        <p>You only enter a display name. There is no account system in this version.</p>
+                    </div>
+                </article>
+                <article class="accordion-item">
+                    <button class="accordion-trigger" type="button" aria-expanded="false">
+                        Can I make a private room?
+                    </button>
+                    <div class="accordion-content" hidden>
+                        <p>Create a hard-to-guess room ID and share it only with your group.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="content-band contact-band">
+            <div class="section-heading">
+                <span class="section-label">Contact us</span>
+                <h2>Need a private version?</h2>
+            </div>
+            <p>
+                Add a contact email or form endpoint here when you are ready to collect requests for
+                protected rooms, team spaces, or moderation features.
+            </p>
+        </section>
+    </main>
+</div>
+
+<section id="chat-page" class="chat-screen hidden">
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="brand-lockup">
+                <div class="brand-mark">T</div>
+                <div>
+                    <strong>Talkmate</strong>
+                    <span id="activeRoomLabel">Room LOUNGE</span>
+                </div>
+            </div>
+
+            <button id="newRoomBtn" class="liquid-btn secondary-action" type="button">New room</button>
+        </div>
+
+        <div class="room-card">
+            <span class="section-label">Room ID</span>
+            <strong id="currentRoomCode">LOUNGE</strong>
+            <button id="copyRoomBtn" class="text-action" type="button">Copy room ID</button>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="status-card">
+                <span class="section-label">Connection</span>
+                <strong class="live-status"><span class="live-dot"></span>Live</strong>
+            </div>
+            <div class="status-card">
+                <span class="section-label">People online</span>
+                <strong id="onlineCount">0 participants</strong>
             </div>
         </div>
+    </aside>
+
+    <section class="chat-main">
+        <header class="topbar">
+            <div>
+                <span class="section-label" id="topbarRoomLabel">Anonymous room</span>
+                <h2>Conversation</h2>
+            </div>
+
+            <div class="topbar-meta">
+                <span class="live-chip"><span class="live-dot"></span>Connected</span>
+                <span class="muted-copy">Share the room ID to invite others</span>
+            </div>
+        </header>
+
+        <div class="connecting">Connecting to the room...</div>
+
+        <div class="conversation-shell">
+            <div class="conversation-intro">
+                <span class="intro-badge">Anonymous room</span>
+                <h3 id="conversationTitle">Room is ready</h3>
+                <p>Messages appear only for people connected to this room ID.</p>
+            </div>
+
+            <ul id="messageArea" class="message-area" aria-live="polite"></ul>
+        </div>
+
+        <footer class="composer">
+            <form id="messageForm" class="message-form">
+                <label class="sr-only" for="message">Message</label>
+                <textarea id="message" rows="1" maxlength="280" placeholder="Message this room..." autocomplete="off" required></textarea>
+                <div class="composer-row">
+                    <span id="charCount" class="char-count">0/280</span>
+                    <button type="submit" class="liquid-btn primary-action">Send</button>
+                </div>
+            </form>
+        </footer>
     </section>
-
-    <section id="chat-page" class="chat-screen hidden">
-        <aside class="sidebar">
-            <div class="sidebar-top">
-                <div class="brand-lockup">
-                    <div class="brand-mark">T</div>
-                    <div>
-                        <strong>Talkmate</strong>
-                        <span>Chat workspace</span>
-                    </div>
-                </div>
-
-                <button class="sidebar-action" type="button">+ New chat</button>
-            </div>
-
-            <nav class="conversation-list" aria-label="Conversation list">
-                <span class="section-label">Rooms</span>
-                <button type="button" class="conversation-item active">
-                    <span class="conversation-dot"></span>
-                    General
-                </button>
-                <button type="button" class="conversation-item">
-                    <span class="conversation-dot muted"></span>
-                    Product
-                </button>
-                <button type="button" class="conversation-item">
-                    <span class="conversation-dot muted"></span>
-                    Design
-                </button>
-            </nav>
-
-            <div class="sidebar-footer">
-                <div class="status-card">
-                    <span class="section-label">Connection</span>
-                    <strong class="live-status"><span class="live-dot"></span>Live</strong>
-                </div>
-                <div class="status-card">
-                    <span class="section-label">People online</span>
-                    <strong id="onlineCount">0 participants</strong>
-                </div>
-            </div>
-        </aside>
-
-        <section class="chat-main glass-card">
-            <header class="topbar">
-                <div>
-                    <span class="section-label">General room</span>
-                    <h2>Conversation</h2>
-                </div>
-
-                <div class="topbar-meta">
-                    <span class="live-chip"><span class="live-dot"></span>Connected</span>
-                    <span class="muted-copy">Public room</span>
-                </div>
-            </header>
-
-            <div class="connecting">Connecting to the room...</div>
-
-            <div class="conversation-shell">
-                <div class="conversation-intro">
-                    <span class="intro-badge">Start here</span>
-                    <h3>Say hello to the room</h3>
-                    <p>
-                        Messages appear instantly, with your own posts aligned to the right and
-                        everyone else on the left.
-                    </p>
-                </div>
-
-                <ul id="messageArea" class="message-area" aria-live="polite"></ul>
-            </div>
-
-            <footer class="composer">
-                <form id="messageForm" class="message-form">
-                    <label class="sr-only" for="message">Message</label>
-                    <textarea id="message" rows="1" maxlength="280" placeholder="Message Talkmate..." autocomplete="off" required></textarea>
-                    <div class="composer-row">
-                        <span id="charCount" class="char-count">0/280</span>
-                        <button type="submit" class="primary-btn">Send</button>
-                    </div>
-                </form>
-            </footer>
-        </section>
-    </section>
-</main>
+</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
